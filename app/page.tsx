@@ -1,65 +1,90 @@
-import Image from "next/image";
+'use client';
+
+import Link from 'next/link';
+import { clearGameState } from '@/lib/gameStore';
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
+      {/* Hero */}
+      <div className="text-center mb-12">
+        <div className="text-7xl mb-4">🎨</div>
+        <h1 className="text-6xl font-black mb-2 bg-gradient-to-r from-purple-400 via-pink-400 to-yellow-400 bg-clip-text text-transparent">
+          Hue&apos;s Who
+        </h1>
+        <p className="text-purple-300 text-xl font-medium mt-2">
+          The creative clue-card guessing game
+        </p>
+      </div>
+
+      {/* How to Play */}
+      <div className="max-w-2xl w-full mb-10">
+        <div className="bg-white/5 border border-purple-500/30 rounded-2xl p-6 backdrop-blur-sm">
+          <h2 className="text-xl font-bold text-purple-300 mb-4 text-center">How to Play</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+            <div className="bg-purple-900/40 rounded-xl p-4 text-center border border-purple-500/20">
+              <div className="text-3xl mb-2">👥</div>
+              <div className="text-sm font-semibold text-purple-200">Two Teams</div>
+              <div className="text-xs text-purple-400 mt-1">Compete against each other</div>
+            </div>
+            <div className="bg-purple-900/40 rounded-xl p-4 text-center border border-purple-500/20">
+              <div className="text-3xl mb-2">⏱️</div>
+              <div className="text-sm font-semibold text-purple-200">2 Minutes</div>
+              <div className="text-xs text-purple-400 mt-1">Race to guess connections</div>
+            </div>
+            <div className="bg-purple-900/40 rounded-xl p-4 text-center border border-purple-500/20">
+              <div className="text-3xl mb-2">🃏</div>
+              <div className="text-sm font-semibold text-purple-200">3 Card Types</div>
+              <div className="text-xs text-purple-400 mt-1">Color, Emoji, and Word clues</div>
+            </div>
+          </div>
+
+          <div className="space-y-2 text-sm text-purple-200">
+            <p><span className="text-yellow-400 font-bold">Rep picks</span> clue cards and groups them as connections — no talking or gestures!</p>
+            <p><span className="text-green-400 font-bold">Team guesses</span> the character/answer from the clue combo.</p>
+            <p><span className="text-pink-400 font-bold">Score 10pts</span> per correct guess. Extra cards (3rd+) add penalties.</p>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </div>
+
+      {/* Scoring table */}
+      <div className="max-w-2xl w-full mb-10">
+        <div className="bg-white/5 border border-purple-500/30 rounded-2xl p-6 backdrop-blur-sm">
+          <h2 className="text-xl font-bold text-purple-300 mb-4 text-center">Penalty Rates</h2>
+          <div className="grid grid-cols-3 gap-3">
+            <div className="bg-pink-900/50 border border-pink-500/40 rounded-xl p-3 text-center">
+              <div className="text-2xl mb-1">🎨</div>
+              <div className="text-pink-300 font-bold">Color Card</div>
+              <div className="text-white text-lg font-black">-2 pts</div>
+              <div className="text-pink-400 text-xs">per extra card</div>
+            </div>
+            <div className="bg-amber-900/50 border border-amber-500/40 rounded-xl p-3 text-center">
+              <div className="text-2xl mb-1">😊</div>
+              <div className="text-amber-300 font-bold">Emoji Card</div>
+              <div className="text-white text-lg font-black">-4 pts</div>
+              <div className="text-amber-400 text-xs">per extra card</div>
+            </div>
+            <div className="bg-green-900/50 border border-green-500/40 rounded-xl p-3 text-center">
+              <div className="text-2xl mb-1">📝</div>
+              <div className="text-green-300 font-bold">Word Card</div>
+              <div className="text-white text-lg font-black">-5 pts</div>
+              <div className="text-green-400 text-xs">per extra card</div>
+            </div>
+          </div>
+          <p className="text-center text-purple-400 text-xs mt-3">First 2 cards in any connection are always free</p>
         </div>
-      </main>
-    </div>
+      </div>
+
+      {/* CTA */}
+      <Link
+        href="/setup"
+        onClick={() => clearGameState()}
+        className="glow-pulse bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-black text-xl px-12 py-4 rounded-full transition-all duration-200 shadow-lg hover:shadow-purple-500/50 hover:scale-105"
+      >
+        Start Game 🚀
+      </Link>
+
+      <p className="text-purple-600 text-sm mt-6">Categories: Superheroes · Harry Potter · Disney</p>
+    </main>
   );
 }
